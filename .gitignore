@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.db
+
+# Logs
+*.log
+app_console.log
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Excel temp lock files (打开 xlsx 时产生的 ~$ 文件)
+~$*
+
+# 生成的测试报告（可重新生成，不必入库）
+apifox-reports*.html
+reports/
+
+# 私人面试备考材料（本地保留，绝不入库）
+面试内容/
+
+# 手工交付物与生成脚本（本地保留，不入库；公开仓只收测试框架代码）
+测试报告/
+测试用例CSV/
+电商交易系统-Apifox集合.json
+gen_final_reports.py
+gen_manual_deliverables.py
+parse_report.py

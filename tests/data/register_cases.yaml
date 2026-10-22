@@ -1,0 +1,20 @@
+# 注册接口等价类用例（数据驱动示例）
+# 这是"数据驱动"的写法：用例数据和脚本分离，加用例只改这个 YAML，不碰代码。
+# expect_status = 系统【应该】返回的状态码；defect 非空表示这是一个已知缺陷（会被标 xfail）
+- case: 正常注册_等价类有效
+  username: normal_user
+  password: Test1234
+  expect_status: 200
+  defect: ""
+
+- case: 缺失用户名_等价类无效
+  username: null          # null => 不传用户名，应被校验拦截返回 400
+  password: Test1234
+  expect_status: 400
+  defect: D1
+
+- case: 超短密码_边界值
+  username: short_pw
+  password: "12"          # 长度<6，应被校验拦截返回 400
+  expect_status: 400
+  defect: D1

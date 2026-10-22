@@ -1,0 +1,44 @@
+name: API 自动化测试
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  api-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 初始化管理员并后台启动被测服务
+        run: |
+          python seed_admin.py
+          python app.py &
+          # 轮询健康检查，最多等 30 秒
+          for i in $(seq 1 30); do
+            if curl -s http://127.0.0.1:5000/api/health | grep -q ok; then
+              echo "被测服务已启动"; break
+            fi
+            sleep 1
+          done
+
+      - name: 运行 pytest（生成 Allure 结果）
+        run: pytest
+
+      - name: 上传 Allure 结果
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: reports/allure
