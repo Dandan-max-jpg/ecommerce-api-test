@@ -1,19 +1,25 @@
-# 注册接口等价类用例（数据驱动示例）
+# 注册接口等价类用例（数据驱动示例，补充用例 —— 与 TC01~TC03 互补）
 # 这是"数据驱动"的写法：用例数据和脚本分离，加用例只改这个 YAML，不碰代码。
 # expect_status = 系统【应该】返回的状态码；defect 非空表示这是一个已知缺陷（会被标 xfail）
-- case: 正常注册_等价类有效
+#
+# 注意：case 字段会作为 pytest 的用例 id 显示在命令行里，所以用英文命名；
+#      中文含义写在下面的 case_desc 字段里，报告里照样看得懂。
+- case: DDT_normal_register
+  case_desc: 正常注册_等价类有效
   username: normal_user
   password: Test1234
   expect_status: 200
   defect: ""
 
-- case: 缺失用户名_等价类无效
+- case: DDT_D1_null_username_should_400
+  case_desc: 缺失用户名null_等价类无效（与 TC02 空字符串互补）
   username: null          # null => 不传用户名，应被校验拦截返回 400
   password: Test1234
   expect_status: 400
   defect: D1
 
-- case: 超短密码_边界值
+- case: DDT_D1_short_password_should_400
+  case_desc: 超短密码_边界值
   username: short_pw
   password: "12"          # 长度<6，应被校验拦截返回 400
   expect_status: 400

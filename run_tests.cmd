@@ -2,6 +2,9 @@
 chcp 65001 >nul
 cd /d "%~dp0"
 
+REM 把控制台加宽到 170 列：终端太窄时 pytest 会把 xfail 后面的「已知缺陷 Dxx」原因省略掉
+mode con: cols=170 lines=60
+
 REM 优先用本机 python（若 D:\Dev\Python313 在 PATH 则直接用 python）
 set PY=python
 where python >nul 2>nul || set PY=py

@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *.db
+venv/
 
 # Logs
 *.log
@@ -29,3 +30,11 @@ reports/
 gen_final_reports.py
 gen_manual_deliverables.py
 parse_report.py
+
+# 本地预览文件（推送前自查用，不入库）
+README_预览.html
+
+# pytest / allure 运行产物（可重新生成）
+.pytest_cache/
+allure-results/
+allure-report/

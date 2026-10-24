@@ -1,17 +1,14 @@
-# test_smoke.py —— 起步冒烟（2 条）：服务存活 + 注册正常
-# 说明：D1(空用户名未校验) 这类缺陷用例已迁移到 test_ddt.py，并以 xfail 登记，
-#       这里只保留永远能通过的基础冒烟，保证 `pytest` 默认就是绿 + 黄(xfail)。
-import time
+# test_smoke.py —— 冒烟：只留"服务存活"这一条永远该绿的基线
+# 说明：注册/登录等正常流程用例已归入 test_auth.py 的 TC01~TC07，
+#       这里不再重复，避免同一条用例在报告里出现两次。
+import allure
 
 
-def test_health(api):
-    """冒烟：服务活着"""
-    r = api.request("GET", "/api/health")
+@allure.feature("冒烟")
+@allure.story("健康检查")
+@allure.severity(allure.severity_level.BLOCKER)
+def test_smoke_health(api):
+    """冒烟：服务活着就返回 200 且 status=ok（跑用例前确认环境没挂）"""
+    r = api.health()
     assert r.status_code == 200
-
-
-def test_register_normal(api):
-    """正常等价类：合法用户名 + 合规密码 → 200"""
-    uname = "u" + str(int(time.time()))
-    r = api.register(uname, "test123")
-    assert r.status_code == 200
+    assert api.ok_data(r)["status"] == "ok"
