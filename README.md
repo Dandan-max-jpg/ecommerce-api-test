@@ -1,5 +1,7 @@
 # 电商交易系统 · 接口自动化测试
 
+![CI](https://github.com/Dandan-max-jpg/ecommerce-api-test/actions/workflows/test.yml/badge.svg)
+
 > 用 pytest 给一个 Flask 电商后端写的接口自动化测试框架：**55 条用例，一跑就是
 > `27 passed, 28 xfailed`** —— 绿的是"系统做对了"，黄的是"已知缺陷，证据已固化"。
 
