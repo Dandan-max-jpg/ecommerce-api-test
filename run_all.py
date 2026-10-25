@@ -1,4 +1,4 @@
-# run_all.py —— 一键运行入口：PyCharm 里右键 Run 即可，不用记任何命令
+# run_all.py —— 一键运行入口
 #
 # 做的事和 run_tests.cmd 完全一致：
 #   [1/4] 初始化管理员账号（seed_admin.py，幂等，重复跑不会出错）
