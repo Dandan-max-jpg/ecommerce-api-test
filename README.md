@@ -82,7 +82,7 @@
 │   ├── test_ddt.py               # 第5层：数据驱动（YAML 驱动注册等价类）
 │   └── data/register_cases.yaml
 ├── .github/workflows/test.yml    # CI：提交即起服务 + 跑测试 + 出报告
-└── requirements.txt / pytest.ini / run_tests.cmd
+└── requirements.txt / pytest.ini / run_tests.cmd / run_all.py
 ```
 
 ## 七、怎么跑（本地）
@@ -96,6 +96,10 @@ pytest                    # 跑测试
 
 或直接双击 `run_tests.cmd`（一键：建账号 → 起服务 → 等健康检查 → 跑测试 → 关闭）。
 脚本里加了 `mode con: cols=170`：**终端宽度不够时，pytest 会把行尾的 xfail 原因省略掉**。
+
+也可以在 PyCharm 里直接右键 `run_all.py` → Run：脚本自动建管理员、按需起服务（已在跑则复用）、
+跑 pytest 并提示查看报告的命令。终端等价命令是 `python run_all.py`，
+额外参数会原样透传给 pytest（例如 `python run_all.py -k smoke` 只跑冒烟）。
 
 ## 八、怎么读结果
 
