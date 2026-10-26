@@ -87,19 +87,30 @@
 
 ## 七、怎么跑（本地）
 
+**推荐（一键，零记命令）**：在 PyCharm 里右键 `run_all.py` → Run，或在终端执行：
+
+```bash
+python run_all.py
+```
+
+脚本会自动：建管理员 → 按需起被测服务（已在跑则复用，不会误杀） → 跑全套 pytest → 提示看报告。
+跟在后面的参数会原样透传给 pytest，例如只跑冒烟：
+
+```bash
+python run_all.py -k smoke
+```
+
+**手动分步（等价于上面的脚本）**：
+
 ```bash
 pip install -r requirements.txt
 python seed_admin.py      # 初始化 admin/admin123
-python app.py             # 启动被测服务（5000 端口）
-pytest                    # 跑测试
+python app.py             # 启动被测服务（5000 端口，开一个新终端）
+pytest                    # 另开终端跑测试
 ```
 
-或直接双击 `run_tests.cmd`（一键：建账号 → 起服务 → 等健康检查 → 跑测试 → 关闭）。
-脚本里加了 `mode con: cols=170`：**终端宽度不够时，pytest 会把行尾的 xfail 原因省略掉**。
-
-也可以在 PyCharm 里直接右键 `run_all.py` → Run：脚本自动建管理员、按需起服务（已在跑则复用）、
-跑 pytest 并提示查看报告的命令。终端等价命令是 `python run_all.py`，
-额外参数会原样透传给 pytest（例如 `python run_all.py -k smoke` 只跑冒烟）。
+**Windows 一键批处理**：直接双击 `run_tests.cmd`（建账号 → 起服务 → 等健康检查 → 跑测试 → 关闭）。
+脚本里加了 `mode con: cols=170`：**终端宽度不够时，pytest 会把行尾的 xfail 原因省略掉**，调宽列数能看全。
 
 ## 八、怎么读结果
 
